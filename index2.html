@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Life & Slime - スライフ</title>
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+ <!-- ホーム画面 -->
+<main id="screen-home" class="screen active">
+
+  <header class="header">
+    <h1>Life & Slime</h1>
+    <p class="subtitle">今日のスライフ</p>
+  </header>
+
+  <section class="world">
+    <div id="world-background" class="world-bg world-normal">
+
+      <!-- スライフ本体 -->
+      <div id="slife" class="slife slife-normal">
+
+        <!-- 表情エフェクトまとめ -->
+        <div id="slife-effects">
+
+          <!-- デフォルト演出（通常の日） -->
+          <span class="effect-normal effect-text">•</span>
+
+          <!-- 眠い/寝不足（sleepy） -->
+          <span class="effect-sleepy effect-text" style="display:none;">zzz</span>
+
+          <!-- 空腹（hungry） -->
+          <span class="effect-hungry effect-text" style="display:none;">ぐぅ…</span>
+
+          <!-- 誇らしい（proud） -->
+          <span class="effect-proud effect-text" style="display:none;">✨</span>
+
+          <!-- 喉かわき（thirsty） -->
+          <span class="effect-thirsty effect-text" style="display:none;">水…ほしい…</span>
+
+          <!-- 薬のめた（cared） -->
+          <span class="effect-cared effect-text" style="display:none;">💊 よし…</span>
+
+          <!-- 薬のめなかった（fragile） -->
+          <span class="effect-fragile effect-text" style="display:none;">…また あした</span>
+
+        </div>
+
+      </div>
+
+  </section>
+
+  <section class="actions">
+    <button id="to-log">今日の状態を記録する</button>
+    <button id="to-inn">今日はここまでにする</button>
+    <button id="to-settings">きほん設定</button> 
+  </section>
+
+</main>
+
+
+  <!-- 記録画面 -->
+  <main id="screen-log" class="screen">
+    <header class="header">
+      <h2>今日のきろく</h2>
+    </header>
+
+    <section class="form">
+      <div class="field">
+        <label>睡眠</label>
+        <div class="choice-row" data-field="sleep">
+          <button data-value="5">😴 よく眠れた</button>
+          <button data-value="3">🙂 ふつう</button>
+          <button data-value="2">😐 浅かった</button>
+          <button data-value="1">😵 ほぼ眠れず</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>水分</label>
+        <div class="choice-row" data-field="water">
+          <button data-value="1">💧</button>
+          <button data-value="2">💧💧</button>
+          <button data-value="3">💧💧💧</button>
+          <button data-value="4">💧💧💧💧</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>活動</label>
+        <div class="choice-row" data-field="activity">
+          <button data-value="rest">🛋 ほぼ休んだ</button>
+          <button data-value="walk">🚶 少し歩いた</button>
+          <button data-value="move">🏃 よく動いた</button>
+          <button data-value="house">🏡 家事・日常</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>食事</label>
+        <div class="choice-row" data-field="meal">
+          <button data-value="good">◎ しっかり</button>
+          <button data-value="normal">◯ ふつう</button>
+          <button data-value="light">△ 軽め</button>
+          <button data-value="skip">× バラバラ/ほぼ食べず</button>
+        </div>
+      </div>
+
+    <!-- 薬の項目（設定で薬がある場合のみ表示） -->
+<div class="field" id="field-med" style="display: none;">
+  <label>薬</label>
+  <div class="choice-row" data-field="medTaken">
+    <button data-value="yes">💊 のめた</button>
+    <button data-value="no">🕒 のめなかった</button>
+  </div>
+</div>
+
+    </section>
+
+    <section class="actions">
+      <button id="log-back">もどる</button>
+      <button id="log-save">この内容でスライフに伝える</button>
+    </section>
+    
+
+
+  </main>
+
+<!-- 宿屋画面 -->
+<main id="screen-inn" class="screen">
+  <header class="header">
+    <h2>森の宿</h2>
+  </header>
+
+  <section class="inn-body">
+    <p id="inn-message">
+      今日はここまで。<br />
+      森は静かに夜になっていく。
+    </p>
+
+    <div class="inn-world">
+      <div class="world-bg world-night">
+        <div style="position: relative;">
+          <div id="slife-inn" class="slife slife-normal"></div>
+          <span class="sleep-zzz">Zzz</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="actions">
+    <button id="inn-close">おやすみ</button>
+  </section>
+</main>
+
+<!-- 設定画面 -->
+<main id="screen-settings" class="screen">
+  <header class="header">
+    <h2>きほん設定</h2>
+    <p class="subtitle">スライフと暮らすあなたの情報</p>
+  </header>
+
+  <section class="form">
+    <!-- 薬の設定 -->
+    <div class="field">
+      <label>
+        <input type="checkbox" id="set-has-med" />
+        普段、毎日飲んでいる薬がある
+      </label>
+    </div>
+
+    <div class="field">
+      <label for="set-med-name">薬の名前（任意）</label>
+      <input type="text" id="set-med-name" placeholder="例）睡眠のお薬 など" />
+    </div>
+
+    <!-- 目標睡眠時間 -->
+    <div class="field">
+      <label for="set-target-sleep">目標睡眠時間（時間）</label>
+      <input type="number" id="set-target-sleep" min="1" max="24" />
+    </div>
+  </section>
+
+  <section class="actions">
+    <button id="settings-back">もどる</button>
+    <button id="settings-save">この内容を保存する</button>
+  </section>
+</main>
+
+
+  <script src="src/main.js"></script>
+</body>
+</html>
